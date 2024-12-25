@@ -2,11 +2,8 @@
  * HOME.JS
  * - Fetches products.json
  * - Displays 4 Featured Products and 4 New Arrivals
- ******************************************************/
+ *******************************************************/
 
-/*******************************************************
- * 1) Fetch products.json and display limited products
- ******************************************************/
 document.addEventListener('DOMContentLoaded', () => {
   fetch('products.json')
     .then(response => {
@@ -37,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         console.warn('New Arrivals data is missing or invalid.');
       }
+
+      // Now that all products are rendered, bind the Add to Cart event
+      setupAddToCartHandlers();
     })
     .catch(error => {
       console.error('Error fetching products.json for Home page:', error);

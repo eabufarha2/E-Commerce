@@ -2,11 +2,8 @@
  * SHOP.JS
  * - Fetches products.json
  * - Displays all products in the Shop section
- ******************************************************/
+ *******************************************************/
 
-/*******************************************************
- * 1) Fetch products.json and display all products
- ******************************************************/
 document.addEventListener('DOMContentLoaded', () => {
   fetch('products.json')
     .then(response => {
@@ -26,9 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         console.warn('Products data is missing or invalid.');
       }
+
+      // Bind Add to Cart event after rendering
+      setupAddToCartHandlers();
     })
     .catch(error => {
       console.error('Error fetching products.json for Shop page:', error);
     });
 });
-

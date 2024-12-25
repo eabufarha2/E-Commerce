@@ -1,47 +1,122 @@
+/* cart.css */
 
-#page-header.about-header {
-    background-image: url("img/banner/b1.jpg");
-    height: 40vh;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-}
-
+/* Cart Page Container */
 .cart-1 {
     padding: 40px 80px;
+    background-color: #f9f9f9;
+    min-height: 60vh;
 }
 
+/* Cart Header Title */
 .cart-header h2 {
-    font-size: 28px;
+    font-size: 32px;
     margin-bottom: 20px;
+    font-weight: 700;
+    color: #333;
 }
 
+/* Cart Table */
 .cart-1 table {
     width: 100%;
     border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
+/* Table Head */
 .cart-1 table thead tr {
-    background-color: #f0f0f0;
+    background-color: #e2e2e2;
 }
 
-.cart-1 table th,
-.cart-1 table td {
-    padding: 10px;
+.cart-1 table th {
+    padding: 15px;
     text-align: left;
+    font-weight: 600;
+    color: #444;
+    border-bottom: 1px solid #ccc;
 }
 
+/* Table Body */
+.cart-1 table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.cart-1 table td img {
+    border-radius: 5px;
+    max-width: 60px;
+}
+
+/* Quantity Buttons */
+.qtyBtn {
+    background-color: #088178;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.qtyBtn:hover {
+    background-color: #066862;
+}
+
+/* Remove Button */
+.removeBtn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.removeBtn:hover {
+    background-color: #c0392b;
+}
+
+/* Cart Totals Section */
 .cart-total {
     margin-top: 20px;
+    text-align: right;
 }
 
 .cart-total table {
     width: 300px;
+    background-color: #fff;
     border-collapse: collapse;
+    float: right;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .cart-total table td {
-    padding: 10px;
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+}
+
+.cart-total tr:last-child td {
+    border-bottom: none;
+    font-weight: 600;
+    color: #333;
+}
+
+.cart-total button {
+    background-color: #088178;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.cart-total button:hover {
+    background-color: #066862;
 }

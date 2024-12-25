@@ -154,31 +154,4 @@
     font-size: 15px;
 }
 /* Make the product container a flex container */
-.pro-container {
-    display: flex;
-    flex-wrap: wrap;
-    /* allow items to wrap to a new line */
-    justify-content: flex-start;
-    /* or space-between / center / etc. */
-    gap: 1rem;
-    /* adds spacing between items */
-}
 
-/* Style each product card */
-.pro {
-    flex: 1 1 calc(25% - 2rem);
-    /* four per row at larger screens */
-    box-sizing: border-box;
-    margin-bottom: 1rem;
-    /* If you prefer a fixed width instead of fluid, you can do:
-     width: 200px; 
-     or adjust as needed 
-  */
-}
-
-/* Ensure images don’t overflow their container */
-.pro img {
-    width: 100%;
-    height: auto;
-    display: block;
-}

@@ -2,44 +2,35 @@
  * GLOBAL.JS
  * - Loads header & footer partials
  * - Contains shared cart functionality
- ******************************************************/
+ *******************************************************/
 
-/** Define the global discount rate (70% discount) */
-const DISCOUNT_RATE = 0.7; // Represents a 70% discount
+/** Global configuration variables */
+const DISCOUNT_RATE = 0.7; // 70% discount
+const SHIPPING_COST = 5;   // Flat shipping cost
 
-/*******************************************************
- * 1) Dynamically load header & footer (if using partials)
- ******************************************************/
+/**
+ * Applies the global discount to a given price
+ * @param {number} price - original product price
+ * @returns {number} - discounted price
+ */
+function applyDiscount(price) {
+  return price * (1 - DISCOUNT_RATE);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Insert header partial
-  fetch('partials/header.html')
-    .then((res) => res.text())
-    .then((data) => {
-      document.getElementById('header-placeholder').innerHTML = data;
-      setupMobileMenu(); // Initialize mobile menu after header loads
-      console.log('Header loaded successfully.');
-    })
-    .catch(error => {
-      console.error('Error loading header:', error);
-    });
-
-  // Insert footer partial
-  fetch('partials/footer.html')
-    .then((res) => res.text())
-    .then((data) => {
-      document.getElementById('footer-placeholder').innerHTML = data;
-      console.log('Footer loaded successfully.');
-    })
-    .catch(error => {
-      console.error('Error loading footer:', error);
-    });
-
-  // Initialize shared functionalities
+  // Only load cart from localStorage; don't bind .cart here
   initializeCart();
 });
 
+/**
+ * Initialize the cart array from localStorage
+ */
+function initializeCart() {
+  loadCartFromLocalStorage();
+}
+
 /*******************************************************
- * 2) Example mobile nav toggles (if you have them)
+ * 1) Dynamically load header & footer
  ******************************************************/
 function setupMobileMenu() {
   const bar = document.getElementById('bar');
@@ -60,8 +51,37 @@ function setupMobileMenu() {
   }
 }
 
+// Insert header partial
+fetch('partials/header.html')
+  .then(res => res.text())
+  .then(data => {
+    const headerPlaceholder = document.getElementById('header-placeholder');
+    if (headerPlaceholder) {
+      headerPlaceholder.innerHTML = data;
+      setupMobileMenu();
+      console.log('Header loaded successfully.');
+    }
+  })
+  .catch(error => {
+    console.error('Error loading header:', error);
+  });
+
+// Insert footer partial
+fetch('partials/footer.html')
+  .then(res => res.text())
+  .then(data => {
+    const footerPlaceholder = document.getElementById('footer-placeholder');
+    if (footerPlaceholder) {
+      footerPlaceholder.innerHTML = data;
+      console.log('Footer loaded successfully.');
+    }
+  })
+  .catch(error => {
+    console.error('Error loading footer:', error);
+  });
+
 /*******************************************************
- * 3) CART FUNCTIONALITY (shared across pages)
+ * 2) CART FUNCTIONALITY (shared across pages)
  ******************************************************/
 let cart = [];
 
@@ -119,25 +139,43 @@ function generateStarsHTML(rating) {
   return stars;
 }
 
-/** Generates HTML for a single product, including data-* attributes */
+/**
+ * Generates HTML for a single product, including data-* attributes.
+ * Adds links to the product detail page via ?id=PRODUCT_ID.
+ * Also sets a fallback for broken/missing images.
+ */
 function generateProductHTML(product) {
-  const discountedPrice = product.price * (1 - DISCOUNT_RATE);
-  const formattedOriginalPrice = `₪‎${product.price.toFixed(2)}`;
-  const formattedDiscountedPrice = `₪‎${discountedPrice.toFixed(2)}`;
-  const discountPercentage = `${DISCOUNT_RATE * 100}% OFF`;
+  const discountedPrice = applyDiscount(product.price);
+  const formattedOriginalPrice = `₹${product.price.toFixed(2)}`;
+  const formattedDiscountedPrice = `₹${discountedPrice.toFixed(2)}`;
+  const discountPercentage = `${(DISCOUNT_RATE * 100).toFixed(0)}% OFF`;
+
+  // If image is missing or fails, fallback to placeholder.com
+  const fallbackImg = "https://via.placeholder.com/300?text=No+Image";
 
   return `
     <div class="pro"
+         data-id="${product.id}"
          data-name="${product.name}"
          data-price="${discountedPrice}"
          data-img="${product.image}"
-         data-brand="${product.brand}"
-    >
-      <img src="${product.image}" alt="${product.name}">
+         data-brand="${product.brand}">
+      
+      <!-- Clickable product image linking to detail page -->
+      <a href="product-detail.html?id=${product.id}">
+        <img src="${product.image}" 
+             alt="${product.name}" 
+             class="product-image"
+             onerror="this.onerror=null;this.src='${fallbackImg}';" />
+      </a>
+      
       <div class="discount-badge">${discountPercentage}</div>
       <div class="des">
         <span>${product.brand}</span>
-        <h5>${product.name}</h5>
+        <!-- Product Name clickable too -->
+        <h5>
+          <a href="product-detail.html?id=${product.id}">${product.name}</a>
+        </h5>
         <div class="star">
           ${generateStarsHTML(product.rating)}
         </div>
@@ -146,75 +184,18 @@ function generateProductHTML(product) {
           <span class="discounted-price">${formattedDiscountedPrice}</span>
         </h4>
       </div>
-      <a href="#" class="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+      <a href="#" class="cart">
+        <!-- Unified cart icon -->
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+      </a>
     </div>
   `;
 }
 
-/** Setup Add to Cart handlers (to be called after products are loaded) */
-function setupAddToCartHandlers() {
-  const cartButtons = document.querySelectorAll('.cart');
-  console.log(`Found ${cartButtons.length} .cart buttons.`);
-  cartButtons.forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.preventDefault();
-      // The parent product might be .pro or .single-pro-image
-      let productDiv = e.target.closest('.pro');
-      if (!productDiv) {
-        // fallback if single-pro page
-        productDiv = e.target.closest('.single-pro-image');
-      }
-      if (!productDiv) {
-        console.warn('Product container not found.');
-        return;
-      }
-
-      // Read data from attributes
-      const name = productDiv.getAttribute('data-name');
-      const price = parseFloat(productDiv.getAttribute('data-price') || '0');
-      const img = productDiv.getAttribute('data-img');
-
-      console.log(`Adding to cart: ${name}, Price: ${price}, Image: ${img}`);
-
-      // Check if product is already in cart
-      const existingItem = cart.find(item => item.name === name);
-      if (existingItem) {
-        existingItem.qty += 1;
-        console.log(`Increased quantity for ${name}: ${existingItem.qty}`);
-      } else {
-        cart.push({
-          name,
-          price,
-          img,
-          qty: 1
-        });
-        console.log(`Added new item to cart: ${name}`);
-      }
-
-      // Show toast
-      showCartNotification(`${name} added to cart!`);
-
-      // Save cart & update display if on cart page
-      saveCartToLocalStorage();
-      updateCartDisplay();
-    });
-  });
-}
-
-/** Initialize Cart (called from initializeCart) */
-function initializeCart() {
-  loadCartFromLocalStorage();
-  setupAddToCartHandlers();
-}
-
-/*******************************************************
- * 4) Helper Functions (to be used by page-specific JS)
- ******************************************************/
-
 /**
- * Common function to display all products in a container.
- * @param {Array} products - Array of product objects.
- * @param {string} containerId - The ID of the container to inject products into.
+ * Inserts product HTML into a container, but does NOT bind events automatically.
+ * @param {Array} products - Array of product objects
+ * @param {string} containerId - The ID of the container to inject products into
  */
 function displayProducts(products, containerId) {
   const container = document.getElementById(containerId);
@@ -223,27 +204,62 @@ function displayProducts(products, containerId) {
     return;
   }
 
-  // Build all product HTML first to minimize DOM reflows
   let productsHTML = '';
   products.forEach(product => {
     productsHTML += generateProductHTML(product);
   });
-
   container.innerHTML = productsHTML;
-
-  // Re-bind Add to Cart handlers for newly added products
-  setupAddToCartHandlers();
 }
 
 /**
- * Updates the cart display on cart.html.
- * This function is referenced in cart.js and should be globally accessible.
+ * Binds a single click event to each .cart button in the DOM,
+ * ensuring no double-binding occurs.
  */
-function updateCartDisplay() {
-  // Ensure cart.js is loaded after global.js
-  if (typeof window.updateCartDisplay === 'function') {
-    window.updateCartDisplay();
-  } else {
-    console.warn('updateCartDisplay function is not defined.');
-  }
+function setupAddToCartHandlers() {
+  const cartButtons = document.querySelectorAll('.cart');
+  console.log(`Binding .cart handlers to ${cartButtons.length} buttons.`);
+
+  cartButtons.forEach(btn => {
+    // Remove any existing listener by cloning the node
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+
+    newBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      let productDiv = e.target.closest('.pro');
+      if (!productDiv) {
+        // fallback if single-pro page
+        productDiv = e.target.closest('.single-pro-image');
+      }
+      if (!productDiv) {
+        console.warn('No product container found on Add to Cart click.');
+        return;
+      }
+
+      // Read data from attributes
+      const name = productDiv.getAttribute('data-name');
+      const price = parseFloat(productDiv.getAttribute('data-price')) || 0;
+      const img = productDiv.getAttribute('data-img');
+
+      console.log(`Adding to cart: ${name}, Price: ${price}`);
+
+      // Check if product is already in cart
+      const existingItem = cart.find(item => item.name === name);
+      if (existingItem) {
+        existingItem.qty += 1;
+        console.log(`Increased quantity for ${name}: ${existingItem.qty}`);
+      } else {
+        cart.push({ name, price, img, qty: 1 });
+        console.log(`Added new item to cart: ${name}`);
+      }
+
+      showCartNotification(`${name} added to cart!`);
+      saveCartToLocalStorage();
+
+      // If we're on cart page, update it
+      if (typeof updateCartDisplay === 'function') {
+        updateCartDisplay();
+      }
+    });
+  });
 }

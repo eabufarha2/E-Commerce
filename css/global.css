@@ -450,7 +450,165 @@ footer .copyright {
 .pro {
     position: relative;
 }
+/* -------------------------------------------------------
+   global.css (Edited)
+   Unify the card design for all .pro items (Featured, New Arrivals, etc.)
+-------------------------------------------------------- */
 
+/* Basic global resets, typography, etc. (unchanged from before)... */
+/* ... */
+
+.pro-container {
+    /* Container that holds all product cards */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    /* or you can use margin/padding instead of gap if you prefer */
+}
+
+/* Each product card */
+.pro {
+    position: relative;
+    width: 230px;
+    /* adjust as needed */
+    min-height: 320px;
+    background-color: #fff;
+    border-radius: 20px;
+    /* Rounded corners */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    overflow: hidden;
+    /* Round corners actually clip child edges */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 10px;
+}
+
+.pro:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* The product image inside .pro */
+.pro img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid #eee;
+    /* separate the image from text area */
+    object-fit: cover;
+    /* if you want to prevent distortion */
+}
+
+/* The discount badge in the corner */
+.discount-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.85em;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+/* The text area below the product image */
+.pro .des {
+    padding: 16px;
+    text-align: left;
+}
+
+.pro .des span {
+    display: block;
+    color: #888;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.pro .des h5 {
+    margin-bottom: 8px;
+    font-size: 1em;
+    color: #333;
+    text-transform: capitalize;
+}
+
+.pro .des h5 a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.pro .des h5 a:hover {
+    color: #088178;
+}
+
+/* Star icons */
+.pro .star i {
+    color: #f3b519;
+    font-size: 14px;
+}
+
+/* The price area */
+.pro .des h4 {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 1em;
+    color: #222;
+}
+
+.pro .des .original-price {
+    text-decoration: line-through;
+    margin-right: 7px;
+    color: #999;
+}
+
+.pro .des .discounted-price {
+    color: #e74c3c;
+    font-weight: 700;
+}
+
+/* Cart button is a circle at the bottom-right corner */
+.pro .cart {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: #ebf6ea;
+    border: 1px solid #cce7d0;
+    border-radius: 50%;
+    color: #088178;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.pro .cart:hover {
+    background-color: #d6f2d3;
+}
+
+.pro .cart i {
+    font-size: 18px;
+}
+
+/* Example responsiveness */
+@media (max-width: 768px) {
+    .pro {
+        width: 45%;
+        /* 2 cards per row */
+    }
+}
+
+@media (max-width: 576px) {
+    .pro {
+        width: 80%;
+        /* 1 card per row */
+    }
+}
 
 @media (max-width: 799px) {
     .section-p1 {

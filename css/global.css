@@ -1,5 +1,12 @@
+/* -------------------------
+   GLOBAL.CSS
+   - Only universal / site-wide rules
+   - Header, footer, resets, typography, etc.
+--------------------------*/
 
+/* Google Fonts & Base Reset */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +19,7 @@ body {
     color: #222;
 }
 
-
+/* Typography */
 h1 {
     font-size: 50px;
     line-height: 64px;
@@ -41,7 +48,7 @@ p {
     margin: 15px 0 20px 0;
 }
 
-
+/* Spacing Helpers */
 .section-p1 {
     padding: 40px 80px;
 }
@@ -50,6 +57,7 @@ p {
     margin: 40px 0;
 }
 
+/* Buttons */
 button.normal {
     font-size: 14px;
     font-weight: 600;
@@ -75,12 +83,13 @@ button.white {
     transition: 0.2s;
 }
 
+/* Header & Navbar */
 #header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-   
 }
+
 #header-placeholder {
     position: sticky;
     top: 0;
@@ -90,8 +99,6 @@ button.white {
     background: #e3e6f3;
     padding: 20px 80px;
 }
-
-
 
 #navbar {
     display: flex;
@@ -131,119 +138,7 @@ button.white {
     display: none;
 }
 
-
-#feature {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-#feature .fe-box {
-    width: 140px;
-    text-align: center;
-    padding: 25px 13px;
-    box-shadow: 20px 20px 34px rgba(0, 0, 0, 0.03);
-    border: 1px solid #cce7d0;
-    border-radius: 4px;
-    margin: 15px 0;
-    transition: 0.2s ease;
-}
-
-#feature .fe-box:hover {
-    box-shadow: 10px 10px 54px rgba(70, 62, 221, 0.1);
-}
-
-#feature .fe-box img {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-#feature .fe-box h6 {
-    display: inline-block;
-    padding: 9px 8px 6px 8px;
-    line-height: 1;
-    border-radius: 4px;
-    color: #088178;
-    background-color: #fddde4;
-}
-
-
-#products1 {
-    text-align: center;
-}
-
-#products1 .pro-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding-top: 20px;
-}
-
-#products1 .pro {
-    width: 23%;
-    min-height: 250px;
-    padding: 10px 12px;
-    border: 1px solid #cce7d0;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
-    margin: 15px 0;
-    transition: 0.2s ease;
-    position: relative;
-}
-
-#products1 .pro:hover {
-    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.6);
-}
-
-#products1 .pro img {
-    width: 100%;
-    border-radius: 20px;
-}
-
-#products1 .pro .des {
-    text-align: start;
-    padding: 10px 0;
-}
-
-#products1 .pro .des span {
-    color: #606063;
-    font-size: 12px;
-}
-
-#products1 .pro .des h5 {
-    padding-top: 7px;
-    color: #1a1a1a;
-    font-size: 14px;
-}
-
-#products1 .pro .des i {
-    font-size: 12px;
-    color: rgb(243, 181, 25);
-}
-
-#products1 .pro .des h4 {
-    font-size: 15px;
-    font-weight: 700;
-    color: #088178;
-}
-
-#products1 .pro .cart {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    border-radius: 50px;
-    background-color: #ebf6ea;
-    font-weight: 500;
-    color: #088178;
-    border: 1px solid #cce7d0;
-    position: absolute;
-    bottom: 20px;
-    right: 10px;
-}
-
-
+/* Page Header (used across multiple pages) */
 #page-header {
     width: 100%;
     height: 40vh;
@@ -260,6 +155,7 @@ button.white {
     color: #fff;
 }
 
+/* Newsletter (shared across pages) */
 #newletter,
 #newsletter {
     display: flex;
@@ -317,7 +213,7 @@ button.white {
     border-bottom-left-radius: 0;
 }
 
-
+/* Footer */
 footer {
     display: flex;
     flex-wrap: wrap;
@@ -384,24 +280,7 @@ footer .copyright {
     text-align: center;
 }
 
-#pagination {
-    text-align: center;
-}
-
-#pagination a {
-    text-decoration: none;
-    background-color: #088178;
-    padding: 15px 20px;
-    border-radius: 4px;
-    color: #fff;
-    font-weight: 600;
-}
-
-#pagination a i {
-    font-size: 16px;
-    font-weight: 600;
-}
-
+/* Cart Notification (used across the site) */
 #cart-notification {
     position: fixed;
     bottom: 20px;
@@ -424,62 +303,24 @@ footer .copyright {
     pointer-events: auto;
     transform: translateY(0);
 }
-.original-price {
-    text-decoration: line-through;
-    color: #888;
-    margin-right: 10px;
-}
 
-.discounted-price {
-    color: #e74c3c;
-    font-weight: bold;
-}
-
-.discount-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #e74c3c;
-    color: #fff;
-    padding: 5px 10px;
-    font-size: 0.9em;
-    border-radius: 5px;
-    z-index: 10;
-}
-
-.pro {
-    position: relative;
-}
-/* -------------------------------------------------------
-   global.css (Edited)
-   Unify the card design for all .pro items (Featured, New Arrivals, etc.)
--------------------------------------------------------- */
-
-/* Basic global resets, typography, etc. (unchanged from before)... */
-/* ... */
-
+/* Shared Product Card Styles (if used by Home & Shop) */
 .pro-container {
-    /* Container that holds all product cards */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
-    /* or you can use margin/padding instead of gap if you prefer */
 }
 
-/* Each product card */
 .pro {
     position: relative;
     width: 230px;
-    /* adjust as needed */
+    /* adjust if needed */
     min-height: 320px;
     background-color: #fff;
     border-radius: 20px;
-    /* Rounded corners */
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow */
     overflow: hidden;
-    /* Round corners actually clip child edges */
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     margin: 10px;
@@ -490,18 +331,14 @@ footer .copyright {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* The product image inside .pro */
 .pro img {
     width: 100%;
     height: auto;
     display: block;
     border-bottom: 1px solid #eee;
-    /* separate the image from text area */
     object-fit: cover;
-    /* if you want to prevent distortion */
 }
 
-/* The discount badge in the corner */
 .discount-badge {
     position: absolute;
     top: 15px;
@@ -514,7 +351,6 @@ footer .copyright {
     z-index: 2;
 }
 
-/* The text area below the product image */
 .pro .des {
     padding: 16px;
     text-align: left;
@@ -544,13 +380,11 @@ footer .copyright {
     color: #088178;
 }
 
-/* Star icons */
 .pro .star i {
     color: #f3b519;
     font-size: 14px;
 }
 
-/* The price area */
 .pro .des h4 {
     margin-top: 10px;
     font-weight: 600;
@@ -569,7 +403,6 @@ footer .copyright {
     font-weight: 700;
 }
 
-/* Cart button is a circle at the bottom-right corner */
 .pro .cart {
     position: absolute;
     bottom: 15px;
@@ -595,21 +428,19 @@ footer .copyright {
     font-size: 18px;
 }
 
-/* Example responsiveness */
-@media (max-width: 768px) {
-    .pro {
-        width: 45%;
-        /* 2 cards per row */
-    }
+/* Price text globally used? */
+.original-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-right: 10px;
 }
 
-@media (max-width: 576px) {
-    .pro {
-        width: 80%;
-        /* 1 card per row */
-    }
+.discounted-price {
+    color: #e74c3c;
+    font-weight: bold;
 }
 
+/* Media Queries */
 @media (max-width: 799px) {
     .section-p1 {
         padding: 40px 40px;
@@ -618,10 +449,11 @@ footer .copyright {
     #header {
         padding: 20px 40px;
     }
-        #header .logo{
-            width: 10px;
-            height:  10px;
-        }
+
+    #header .logo {
+        width: 10px;
+        height: 10px;
+    }
 
     #navbar {
         flex-direction: column;
@@ -661,17 +493,13 @@ footer .copyright {
         display: none;
     }
 
-    #products1 .pro-container {
-        justify-content: center;
-    }
-
-    #products1 .pro {
-        width: 45%;
-        margin: 15px;
-    }
-
     #page-header {
         height: 25vh;
+    }
+
+    .pro {
+        width: 45%;
+        /* 2 cards per row */
     }
 }
 
@@ -684,12 +512,12 @@ footer .copyright {
         padding: 10px 30px;
     }
 
-    #products1 .pro {
-        width: 90%;
-    }
-
     #page-header {
         height: 15vh;
     }
 
+    .pro {
+        width: 80%;
+        /* 1 card per row */
+    }
 }

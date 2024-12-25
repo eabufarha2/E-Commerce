@@ -4,7 +4,6 @@
 .cart-1 {
     padding: 40px 80px;
     background-color: #f9f9f9;
-    min-height: 60vh;
 }
 
 /* Cart Header Title */
@@ -80,7 +79,9 @@
 
 /* Cart Totals Section */
 .cart-total {
-    margin-top: 20px;
+    display: flex;
+        justify-content: center;
+        flex-direction: column;
     text-align: right;
 }
 
@@ -119,4 +120,13 @@
 
 .cart-total button:hover {
     background-color: #066862;
+}
+#money {
+    display: flex;
+    justify-content: center;
+}
+
+#confirmation-message {
+    margin-top: 20px;
+    font-size: 18px;
 }

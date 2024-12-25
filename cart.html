@@ -3,14 +3,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Online Shopping - Cart</title>
 
-    <!-- Global/shared CSS -->
     <link rel="stylesheet" href="css/global.css" />
-    <!-- Page-specific CSS (new style) -->
     <link rel="stylesheet" href="css/cart.css" />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -20,36 +16,48 @@
   <body>
     <div id="header-placeholder"></div>
 
+    <!-- Main Cart Section -->
     <section class="cart-1" id="cartItems">
-      <!-- Cart header will be replaced by JS if cart has items -->
       <div class="cart-header">
         <h2>Your Cart is empty</h2>
       </div>
     </section>
 
-    <section class="cart-1 section-p1">
-      <div class="cart-total">
+    <section class="cart-1 section-p1" id="money">
+      <div class="cart-total" id="cartTotalSection">
         <table>
           <tr>
             <td>Subtotal</td>
-            <td id="subtotal">₹0.00</td>
+            <td id="subtotal">₪‎0.00</td>
           </tr>
           <tr>
             <td>Shipping</td>
-            <td>₹5.00</td>
+            <td>₪‎5.00</td>
           </tr>
           <tr>
             <td>Total</td>
-            <td id="total">₹5.00</td>
+            <td id="total">₪‎5.00</td>
           </tr>
         </table>
-        <button class="normal">Proceed to Checkout</button>
+        <button class="normal" id="checkoutBtn">Proceed to Checkout</button>
       </div>
     </section>
 
+    <!-- Hidden success/error message container (shown after user checks out) -->
+    <div
+      id="checkoutMessage"
+      style="
+        display: none;
+        text-align: center;
+        padding: 20px;
+        color: #088178;
+        font-size: 18px;
+      "
+    ></div>
+
     <div id="footer-placeholder"></div>
 
-    <!-- Global JS -->
+    <!-- Scripts -->
     <script src="js/global.js"></script>
     <script src="js/cart.js"></script>
   </body>

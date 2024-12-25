@@ -2,7 +2,7 @@
 
 /* Contact Header */
 #page-header.about-header {
-    background-image: url("../img/banner/b1.jpg");
+    background-image: url("../banner.png");
     height: 40vh;
     background-size: cover;
     display: flex;

@@ -1,36 +1,64 @@
 /*******************************************************
  * GLOBAL.JS
- * - Loads header & footer partials
+ * - Dynamically loads header & footer partials
  * - Contains shared cart functionality
  *******************************************************/
 
-/** Global configuration variables */
+/** Global config */
 const DISCOUNT_RATE = 0.7; // 70% discount
 const SHIPPING_COST = 5;   // Flat shipping cost
 
 /**
  * Applies the global discount to a given price
  * @param {number} price - original product price
- * @returns {number} - discounted price
+ * @returns {number} discounted price
  */
 function applyDiscount(price) {
   return price * (1 - DISCOUNT_RATE);
 }
 
+/*******************************************************
+ * 1) MAIN LOAD SEQUENCE
+ ******************************************************/
 document.addEventListener('DOMContentLoaded', () => {
-  // Only load cart from localStorage; don't bind .cart here
-  initializeCart();
+  // Load cart from localStorage so cart[] is ready
+  loadCartFromLocalStorage();
+
+  // Insert header partial FIRST
+  fetch('partials/header.html')
+    .then(res => res.text())
+    .then(data => {
+      const headerPlaceholder = document.getElementById('header-placeholder');
+      if (headerPlaceholder) {
+        headerPlaceholder.innerHTML = data;
+        setupMobileMenu();
+        console.log('Header loaded successfully.');
+
+        // Now that #cartCount is in the DOM, we can update it:
+        updateCartCount();
+      }
+    })
+    .catch(error => {
+      console.error('Error loading header:', error);
+    });
+
+  // Insert footer partial
+  fetch('partials/footer.html')
+    .then(res => res.text())
+    .then(data => {
+      const footerPlaceholder = document.getElementById('footer-placeholder');
+      if (footerPlaceholder) {
+        footerPlaceholder.innerHTML = data;
+        console.log('Footer loaded successfully.');
+      }
+    })
+    .catch(error => {
+      console.error('Error loading footer:', error);
+    });
 });
 
-/**
- * Initialize the cart array from localStorage
- */
-function initializeCart() {
-  loadCartFromLocalStorage();
-}
-
 /*******************************************************
- * 1) Dynamically load header & footer
+ * 2) MOBILE MENU SETUP
  ******************************************************/
 function setupMobileMenu() {
   const bar = document.getElementById('bar');
@@ -51,41 +79,12 @@ function setupMobileMenu() {
   }
 }
 
-// Insert header partial
-fetch('partials/header.html')
-  .then(res => res.text())
-  .then(data => {
-    const headerPlaceholder = document.getElementById('header-placeholder');
-    if (headerPlaceholder) {
-      headerPlaceholder.innerHTML = data;
-      setupMobileMenu();
-      console.log('Header loaded successfully.');
-    }
-  })
-  .catch(error => {
-    console.error('Error loading header:', error);
-  });
-
-// Insert footer partial
-fetch('partials/footer.html')
-  .then(res => res.text())
-  .then(data => {
-    const footerPlaceholder = document.getElementById('footer-placeholder');
-    if (footerPlaceholder) {
-      footerPlaceholder.innerHTML = data;
-      console.log('Footer loaded successfully.');
-    }
-  })
-  .catch(error => {
-    console.error('Error loading footer:', error);
-  });
-
 /*******************************************************
- * 2) CART FUNCTIONALITY (shared across pages)
+ * 3) CART ARRAY & STORAGE
  ******************************************************/
 let cart = [];
 
-/** Load cart from localStorage on page load */
+/** Load cart from localStorage */
 function loadCartFromLocalStorage() {
   const saved = localStorage.getItem('cart');
   if (saved) {
@@ -101,7 +100,7 @@ function loadCartFromLocalStorage() {
   }
 }
 
-/** Save cart to localStorage whenever it changes */
+/** Save cart to localStorage */
 function saveCartToLocalStorage() {
   try {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -111,26 +110,42 @@ function saveCartToLocalStorage() {
   }
 }
 
-/** Show a small toast/notification when a product is added to cart. */
+/*******************************************************
+ * 4) CART NOTIFICATION / CART COUNT
+ ******************************************************/
+/** Show a small toast when product is added */
 function showCartNotification(message) {
   const notif = document.getElementById('cart-notification');
   if (!notif) {
     console.warn('Cart notification element not found.');
     return;
   }
-
   notif.textContent = message;
   notif.classList.add('show');
   console.log('Cart notification shown:', message);
 
-  // Hide after 2 seconds
   setTimeout(() => {
     notif.classList.remove('show');
     console.log('Cart notification hidden.');
   }, 2000);
 }
 
-/** Generates star icons for rating. */
+/** Update the cart count in the top header */
+function updateCartCount() {
+  let totalQty = 0;
+  cart.forEach(item => {
+    totalQty += item.qty;
+  });
+  const cartCountElem = document.getElementById('cartCount');
+  if (cartCountElem) {
+    cartCountElem.textContent = totalQty;
+  }
+}
+
+/*******************************************************
+ * 5) GENERATE PRODUCTS & DISPLAY
+ ******************************************************/
+/** Generate star icons for rating */
 function generateStarsHTML(rating) {
   let stars = '';
   for (let i = 0; i < rating; i++) {
@@ -139,18 +154,17 @@ function generateStarsHTML(rating) {
   return stars;
 }
 
-/**
- * Generates HTML for a single product, including data-* attributes.
- * Adds links to the product detail page via ?id=PRODUCT_ID.
- * Also sets a fallback for broken/missing images.
+/** 
+ * Generate HTML for a single product 
+ * data-id, data-name, data-price, data-img
  */
 function generateProductHTML(product) {
   const discountedPrice = applyDiscount(product.price);
-  const formattedOriginalPrice = `₹${product.price.toFixed(2)}`;
-  const formattedDiscountedPrice = `₹${discountedPrice.toFixed(2)}`;
+  const formattedOriginalPrice = `₪‎${product.price.toFixed(2)}`;
+  const formattedDiscountedPrice = `₪‎${discountedPrice.toFixed(2)}`;
   const discountPercentage = `${(DISCOUNT_RATE * 100).toFixed(0)}% OFF`;
 
-  // If image is missing or fails, fallback to placeholder.com
+  // fallback if image is missing
   const fallbackImg = "https://via.placeholder.com/300?text=No+Image";
 
   return `
@@ -161,18 +175,13 @@ function generateProductHTML(product) {
          data-img="${product.image}"
          data-brand="${product.brand}">
       
-      <!-- Clickable product image linking to detail page -->
       <a href="product-detail.html?id=${product.id}">
-        <img src="${product.image}" 
-             alt="${product.name}" 
-             class="product-image"
+        <img src="${product.image}" alt="${product.name}"
              onerror="this.onerror=null;this.src='${fallbackImg}';" />
       </a>
-      
       <div class="discount-badge">${discountPercentage}</div>
       <div class="des">
         <span>${product.brand}</span>
-        <!-- Product Name clickable too -->
         <h5>
           <a href="product-detail.html?id=${product.id}">${product.name}</a>
         </h5>
@@ -185,7 +194,6 @@ function generateProductHTML(product) {
         </h4>
       </div>
       <a href="#" class="cart">
-        <!-- Unified cart icon -->
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
       </a>
     </div>
@@ -193,9 +201,7 @@ function generateProductHTML(product) {
 }
 
 /**
- * Inserts product HTML into a container, but does NOT bind events automatically.
- * @param {Array} products - Array of product objects
- * @param {string} containerId - The ID of the container to inject products into
+ * Insert product HTML into a container
  */
 function displayProducts(products, containerId) {
   const container = document.getElementById(containerId);
@@ -211,24 +217,23 @@ function displayProducts(products, containerId) {
   container.innerHTML = productsHTML;
 }
 
-/**
- * Binds a single click event to each .cart button in the DOM,
- * ensuring no double-binding occurs.
- */
+/*******************************************************
+ * 6) BIND "ADD TO CART" EVENTS 
+ ******************************************************/
 function setupAddToCartHandlers() {
   const cartButtons = document.querySelectorAll('.cart');
   console.log(`Binding .cart handlers to ${cartButtons.length} buttons.`);
 
   cartButtons.forEach(btn => {
-    // Remove any existing listener by cloning the node
+    // remove old listeners
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
 
-    newBtn.addEventListener('click', (e) => {
+    newBtn.addEventListener('click', e => {
       e.preventDefault();
       let productDiv = e.target.closest('.pro');
       if (!productDiv) {
-        // fallback if single-pro page
+        // fallback if single-pro page .single-pro-image
         productDiv = e.target.closest('.single-pro-image');
       }
       if (!productDiv) {
@@ -236,27 +241,27 @@ function setupAddToCartHandlers() {
         return;
       }
 
-      // Read data from attributes
+      const productId = productDiv.getAttribute('data-id');
       const name = productDiv.getAttribute('data-name');
       const price = parseFloat(productDiv.getAttribute('data-price')) || 0;
       const img = productDiv.getAttribute('data-img');
 
-      console.log(`Adding to cart: ${name}, Price: ${price}`);
-
-      // Check if product is already in cart
-      const existingItem = cart.find(item => item.name === name);
+      // see if item is already in cart
+      const existingItem = cart.find(item => item.id === productId);
       if (existingItem) {
-        existingItem.qty += 1;
-        console.log(`Increased quantity for ${name}: ${existingItem.qty}`);
+        existingItem.qty++;
+        console.log(`Increased quantity for ${existingItem.name} to ${existingItem.qty}`);
       } else {
-        cart.push({ name, price, img, qty: 1 });
+        cart.push({ id: productId, name, price, img, qty: 1 });
         console.log(`Added new item to cart: ${name}`);
       }
 
-      showCartNotification(`${name} added to cart!`);
+      // store & update header
       saveCartToLocalStorage();
+      updateCartCount();
+      showCartNotification(`${name} added to cart!`);
 
-      // If we're on cart page, update it
+      // if on cart page, refresh it
       if (typeof updateCartDisplay === 'function') {
         updateCartDisplay();
       }

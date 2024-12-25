@@ -1,6 +1,13 @@
+/* -------------------------
+   SHOP.CSS
+   - Styles unique to Shop page
+--------------------------*/
 
 #page-header {
-    background-image: url("../img/banner/b1.jpg");
+    /* If the shop page uses the same #page-header design as others,
+       you could remove this. 
+       Otherwise you can keep a shop-specific background: */
+    background-image: url("../banner.png");
     height: 40vh;
     background-size: cover;
     display: flex;
@@ -9,7 +16,10 @@
     color: #fff;
 }
 
+/* Products on shop page 
+   (you can rely on global .pro / .pro-container if you want the same style) */
 #products1 .pro-container {
+    /* If you want a different layout than home, you can override here: */
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -17,10 +27,31 @@
 }
 
 #products1 .pro {
+    /* If you want a smaller or bigger width than home, override here. 
+       If you want them exactly the same as home, remove this block. */
     width: 200px;
     border: 1px solid #cce7d0;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
     margin-bottom: 20px;
+}
+
+/* Pagination only on Shop page */
+#pagination {
+    text-align: center;
+}
+
+#pagination a {
+    text-decoration: none;
+    background-color: #088178;
+    padding: 15px 20px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+}
+
+#pagination a i {
+    font-size: 16px;
+    font-weight: 600;
 }

@@ -1,15 +1,21 @@
 /*******************************************************
  * CART.JS
  * - Displays cart items
- * - Handles quantity adjustments and item removal
+ * - Handles quantity adjustments, item removal
+ * - Toggles the cart-total section visibility
  ******************************************************/
 
 document.addEventListener('DOMContentLoaded', () => {
   updateCartDisplay();
+
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', handleCheckout);
+  }
 });
 
 /**
- * Updates the cart display on cart.html if the user is on that page.
+ * Renders the cart items onto the cart page (cart.html).
  */
 function updateCartDisplay() {
   const cartSection = document.getElementById('cartItems');
@@ -24,7 +30,10 @@ function updateCartDisplay() {
     return;
   }
 
-  // Clear existing cart table (except the header)
+  // The totals container
+  const totalsSection = document.getElementById('cartTotalSection');
+
+  // Remove any existing table
   const existingTable = cartSection.querySelector('table');
   if (existingTable) {
     existingTable.remove();
@@ -33,9 +42,16 @@ function updateCartDisplay() {
   // If cart is empty
   if (cart.length === 0) {
     cartHeader.innerHTML = '<h2>Your Cart is empty</h2>';
-    document.getElementById('subtotal').textContent = '₹0.00';
-    document.getElementById('total').textContent = `₹${SHIPPING_COST.toFixed(2)}`;
+    // Hide the entire totals section
+    if (totalsSection) {
+      totalsSection.style.display = 'none';
+    }
     return;
+  }
+
+  // If cart is NOT empty, show totals section
+  if (totalsSection) {
+    totalsSection.style.display = 'block';
   }
 
   cartHeader.innerHTML = '<h2>Your Cart Items</h2>';
@@ -54,15 +70,12 @@ function updateCartDisplay() {
       </thead>
       <tbody>
   `;
-
-  // Fallback image
   const fallbackImg = "https://via.placeholder.com/50?text=No+Image";
-
   let subtotal = 0;
+
   cart.forEach((item, index) => {
     const itemTotal = item.qty * item.price;
     subtotal += itemTotal;
-
     html += `
       <tr>
         <td>
@@ -71,8 +84,12 @@ function updateCartDisplay() {
                alt="${item.name}" 
                onerror="this.onerror=null;this.src='${fallbackImg}';" />
         </td>
-        <td>${item.name}</td>
-        <td>₹${item.price.toFixed(2)}</td>
+        <td>
+          <a href="product-detail.html?id=${item.id || ''}">
+            ${item.name}
+          </a>
+        </td>
+        <td>₪‎${item.price.toFixed(2)}</td>
         <td>
           <button class="qtyBtn" data-index="${index}" data-action="minus">-</button>
           ${item.qty}
@@ -88,24 +105,20 @@ function updateCartDisplay() {
   html += `</tbody></table>`;
   cartSection.innerHTML += html;
 
-  // Update Subtotal & Total
-  document.getElementById('subtotal').textContent = `₹${subtotal.toFixed(2)}`;
+  // Calculate and display totals
   const total = subtotal + SHIPPING_COST;
-  document.getElementById('total').textContent = `₹${total.toFixed(2)}`;
+  document.getElementById('subtotal').textContent = `₪‎${subtotal.toFixed(2)}`;
+  document.getElementById('total').textContent = `₪‎${total.toFixed(2)}`;
 
-  // Bind remove button events
+  // Bind remove / qty events
   const removeBtns = document.querySelectorAll('.removeBtn');
-  removeBtns.forEach(btn => {
-    btn.addEventListener('click', removeItem);
-  });
+  removeBtns.forEach(btn => btn.addEventListener('click', removeItem));
 
-  // Bind plus/minus quantity buttons
   const qtyBtns = document.querySelectorAll('.qtyBtn');
-  qtyBtns.forEach(btn => {
-    btn.addEventListener('click', updateItemQty);
-  });
+  qtyBtns.forEach(btn => btn.addEventListener('click', updateItemQty));
 }
 
+/** Removes an item from cart by index */
 function removeItem(e) {
   const index = parseInt(e.target.getAttribute('data-index'));
   if (isNaN(index) || index < 0 || index >= cart.length) {
@@ -115,9 +128,11 @@ function removeItem(e) {
   const removedItem = cart.splice(index, 1)[0];
   console.log(`Removed item from cart: ${removedItem.name}`);
   saveCartToLocalStorage();
+  updateCartCount();
   updateCartDisplay();
 }
 
+/** Adjust item qty by index */
 function updateItemQty(e) {
   const index = parseInt(e.target.getAttribute('data-index'));
   const action = e.target.getAttribute('data-action');
@@ -130,7 +145,6 @@ function updateItemQty(e) {
   if (action === 'minus') {
     cart[index].qty--;
     if (cart[index].qty <= 0) {
-      console.log(`Quantity for ${cart[index].name} is 0. Removing from cart.`);
       cart.splice(index, 1);
     }
   } else if (action === 'plus') {
@@ -141,5 +155,33 @@ function updateItemQty(e) {
   }
 
   saveCartToLocalStorage();
+  updateCartCount();
   updateCartDisplay();
+}
+
+/**
+ * Example handleCheckout function (if you have one)
+ */
+function handleCheckout() {
+  const msgDiv = document.getElementById('checkoutMessage');
+  if (!msgDiv) return;
+
+  if (cart.length === 0) {
+    msgDiv.style.display = 'block';
+    msgDiv.innerHTML = `<p style="color:red;font-size:18px;">
+      Your cart is empty. Please add items before checking out.
+    </p>`;
+    return;
+  }
+  // Clear cart
+  cart = [];
+  saveCartToLocalStorage();
+  updateCartCount();
+  updateCartDisplay();
+
+  msgDiv.style.display = 'block';
+  msgDiv.innerHTML = `
+    <h2 style="margin-bottom:10px;">Thank You for Your Purchase!</h2>
+    <p>Your order is being processed, and your cart is now empty.</p>
+  `;
 }

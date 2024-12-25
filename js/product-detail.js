@@ -52,8 +52,8 @@ function displayProductDetail(product) {
 
   // Use the discount function
   const discountedPrice = applyDiscount(product.price);
-  const formattedOriginalPrice = `₹${product.price.toFixed(2)}`;
-  const formattedDiscountedPrice = `₹${discountedPrice.toFixed(2)}`;
+  const formattedOriginalPrice = `₪‎${product.price.toFixed(2)}`;
+  const formattedDiscountedPrice = `₪‎${discountedPrice.toFixed(2)}`;
 
   // Fallback image
   const fallbackImg = "https://via.placeholder.com/400?text=No+Image";

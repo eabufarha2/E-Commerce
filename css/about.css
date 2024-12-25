@@ -1,3 +1,4 @@
+/* about.css */
 
 #page-header.about-header {
     background-image: url("../img/about/banner.png");
@@ -25,3 +26,36 @@
     padding-left: 40px;
 }
 
+/* Mission & Vision Section */
+#mission-vision {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 40px 80px;
+}
+
+#mission-vision .vision,
+#mission-vision .mission {
+    width: 45%;
+}
+
+#mission-vision h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #222;
+}
+
+#mission-vision p {
+    line-height: 1.6;
+}
+
+/* Additional Info / Company History */
+#company-history {
+    padding: 40px 80px;
+    color: #333;
+}
+
+#company-history p {
+    line-height: 1.8;
+}

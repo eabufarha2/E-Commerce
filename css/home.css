@@ -1,0 +1,184 @@
+
+#hero {
+    background-image: url("../image/bestsellers.jpg");
+    height: 90vh;
+    width: 100%;
+    background-size: cover;
+    background-position: top 25% right 0;
+    padding: 0 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+
+#hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#hero h4 {
+    padding-bottom: 15px;
+}
+
+#hero h1 {
+    color: #088178;
+}
+#hero p {
+    color: white;
+}
+
+#hero button {
+    background-image: url("../img/button.png");
+    background-color: transparent;
+    color: #088178;
+    border: 0;
+    padding: 14px 88px 14px 65px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+
+}
+
+#hero button a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #088178;
+    transition: 0.3s ease;
+}
+
+/* Banner (only on Home) */
+#banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url("../img/banner/b2.jpg");
+    width: 100%;
+    height: 40vh;
+    background-size: cover;
+    background-position: center;
+}
+
+#banner h4 {
+    color: #fff;
+    font-size: 16px;
+}
+
+#banner h2 {
+    color: #fff;
+    font-size: 30px;
+    padding: 10px 0;
+}
+
+#banner h2 span {
+    color: #ef3636;
+}
+
+#banner button:hover {
+    background: #088178;
+    color: #fff;
+}
+
+/* If you use #sm-banner, #banner3 on Home page only */
+#sm-banner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#sm-banner .banner-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-image: url("../img/banner/b17.jpg");
+    min-width: 50%;
+    height: 45vh;
+    background-size: cover;
+    background-position: center;
+    padding: 30px;
+}
+
+#sm-banner .banner-box2 {
+    background-image: url("../img/banner/b10.jpg");
+}
+
+#banner3 {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 80px;
+}
+
+#banner3 .banner-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-image: url("../img/banner/b7.jpg");
+    min-width: 30%;
+    height: 30vh;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#banner3 .banner-box2 {
+    background-image: url("../img/banner/b4.jpg");
+}
+
+#banner3 .banner-box3 {
+    background-image: url("../img/banner/b18.jpg");
+}
+
+#banner3 h2 {
+    color: #fff;
+    font-weight: 900;
+    font-size: 22px;
+}
+
+#banner3 h3 {
+    color: #ec544e;
+    font-weight: 800;
+    font-size: 15px;
+}
+/* Make the product container a flex container */
+.pro-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* allow items to wrap to a new line */
+    justify-content: flex-start;
+    /* or space-between / center / etc. */
+    gap: 1rem;
+    /* adds spacing between items */
+}
+
+/* Style each product card */
+.pro {
+    flex: 1 1 calc(25% - 2rem);
+    /* four per row at larger screens */
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    /* If you prefer a fixed width instead of fluid, you can do:
+     width: 200px; 
+     or adjust as needed 
+  */
+}
+
+/* Ensure images don’t overflow their container */
+.pro img {
+    width: 100%;
+    height: auto;
+    display: block;
+}

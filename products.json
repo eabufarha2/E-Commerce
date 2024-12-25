@@ -1,0 +1,296 @@
+{
+  "featured": [
+    {
+      "id": "F1",
+      "image": "img/Products/f1.jpg",
+      "brand": "Chanel",
+      "name": "Eternal Bloom Perfume",
+      "price": 2500,
+      "rating": 5
+    },
+    {
+      "id": "F2",
+      "image": "img/Products/f2.jpg",
+      "brand": "Dior",
+      "name": "Mystic Aura Fragrance",
+      "price": 2700,
+      "rating": 4
+    },
+    {
+      "id": "F3",
+      "image": "img/Products/f3.jpg",
+      "brand": "Gucci",
+      "name": "Funky Floral Scent",
+      "price": 2300,
+      "rating": 5
+    },
+    {
+      "id": "F4",
+      "image": "img/Products/f4.jpg",
+      "brand": "Versace",
+      "name": "Ocean Mist Eau de Parfum",
+      "price": 2600,
+      "rating": 5
+    },
+    {
+      "id": "F5",
+      "image": "img/Products/f5.jpg",
+      "brand": "Yves Saint Laurent",
+      "name": "Starry Night Perfume",
+      "price": 2400,
+      "rating": 4
+    },
+    {
+      "id": "F6",
+      "image": "img/Products/f6.jpg",
+      "brand": "Prada",
+      "name": "Galaxy Glow Eau de Parfum",
+      "price": 2550,
+      "rating": 5
+    },
+    {
+      "id": "F7",
+      "image": "img/Products/f7.jpg",
+      "brand": "Tom Ford",
+      "name": "Moonlit Serenade Fragrance",
+      "price": 2700,
+      "rating": 5
+    },
+    {
+      "id": "F8",
+      "image": "img/Products/f8.jpg",
+      "brand": "Jo Malone",
+      "name": "Asteroid Essence Perfume",
+      "price": 2450,
+      "rating": 5
+    }
+  ],
+  "newArrivals": [
+    {
+      "id": "N1",
+      "image": "img/Products/n1.jpg",
+      "brand": "Lancome",
+      "name": "Future Essence Perfume",
+      "price": 2500,
+      "rating": 5
+    },
+    {
+      "id": "N2",
+      "image": "img/Products/n2.jpg",
+      "brand": "Burberry",
+      "name": "Cosmic Whisper Eau de Parfum",
+      "price": 2450,
+      "rating": 5
+    },
+    {
+      "id": "N3",
+      "image": "img/Products/n3.jpg",
+      "brand": "Armani",
+      "name": "Rocket Breeze Fragrance",
+      "price": 2550,
+      "rating": 5
+    },
+    {
+      "id": "N4",
+      "image": "img/Products/n4.jpg",
+      "brand": "Hermes",
+      "name": "Nebula Spark Eau de Parfum",
+      "price": 2600,
+      "rating": 5
+    },
+    {
+      "id": "N5",
+      "image": "img/Products/n5.jpg",
+      "brand": "Bvlgari",
+      "name": "Space Blossom Perfume",
+      "price": 2500,
+      "rating": 5
+    },
+    {
+      "id": "N6",
+      "image": "img/Products/n6.jpg",
+      "brand": "Givenchy",
+      "name": "Galaxy Rose Fragrance",
+      "price": 2499,
+      "rating": 5
+    },
+    {
+      "id": "N7",
+      "image": "img/Products/n7.jpg",
+      "brand": "Marc Jacobs",
+      "name": "Star Shine Perfume",
+      "price": 2700,
+      "rating": 5
+    },
+    {
+      "id": "N8",
+      "image": "img/Products/n8.jpg",
+      "brand": "Dolce & Gabbana",
+      "name": "Moonlit Dreams Fragrance",
+      "price": 2550,
+      "rating": 5
+    },
+    {
+      "id": "N9",
+      "image": "img/Products/n9.jpg",
+      "brand": "Calvin Klein",
+      "name": "Celestial Wonder Perfume",
+      "price": 2350,
+      "rating": 4
+    },
+    {
+      "id": "N10",
+      "image": "img/Products/n10.jpg",
+      "brand": "Victoria's Secret",
+      "name": "Ethereal Glow Eau de Parfum",
+      "price": 2500,
+      "rating": 5
+    }
+  ],
+  "products": [
+    {
+      "id": "F1",
+      "image": "img/Products/f1.jpg",
+      "brand": "Chanel",
+      "name": "Eternal Bloom Perfume",
+      "price": 2500,
+      "rating": 5
+    },
+    {
+      "id": "F2",
+      "image": "img/Products/f2.jpg",
+      "brand": "Dior",
+      "name": "Mystic Aura Fragrance",
+      "price": 2700,
+      "rating": 4
+    },
+    {
+      "id": "F3",
+      "image": "img/Products/f3.jpg",
+      "brand": "Gucci",
+      "name": "Funky Floral Scent",
+      "price": 2300,
+      "rating": 5
+    },
+    {
+      "id": "F4",
+      "image": "img/Products/f4.jpg",
+      "brand": "Versace",
+      "name": "Ocean Mist Eau de Parfum",
+      "price": 2600,
+      "rating": 5
+    },
+    {
+      "id": "F5",
+      "image": "img/Products/f5.jpg",
+      "brand": "Yves Saint Laurent",
+      "name": "Starry Night Perfume",
+      "price": 2400,
+      "rating": 4
+    },
+    {
+      "id": "F6",
+      "image": "img/Products/f6.jpg",
+      "brand": "Prada",
+      "name": "Galaxy Glow Eau de Parfum",
+      "price": 2550,
+      "rating": 5
+    },
+    {
+      "id": "F7",
+      "image": "img/Products/f7.jpg",
+      "brand": "Tom Ford",
+      "name": "Moonlit Serenade Fragrance",
+      "price": 2700,
+      "rating": 5
+    },
+    {
+      "id": "F8",
+      "image": "img/Products/f8.jpg",
+      "brand": "Jo Malone",
+      "name": "Asteroid Essence Perfume",
+      "price": 2450,
+      "rating": 5
+    },
+    {
+      "id": "N1",
+      "image": "img/Products/n1.jpg",
+      "brand": "Lancome",
+      "name": "Future Essence Perfume",
+      "price": 2500,
+      "rating": 5
+    },
+    {
+      "id": "N2",
+      "image": "img/Products/n2.jpg",
+      "brand": "Burberry",
+      "name": "Cosmic Whisper Eau de Parfum",
+      "price": 2450,
+      "rating": 5
+    },
+    {
+      "id": "N3",
+      "image": "img/Products/n3.jpg",
+      "brand": "Armani",
+      "name": "Rocket Breeze Fragrance",
+      "price": 2550,
+      "rating": 5
+    },
+    {
+      "id": "N4",
+      "image": "img/Products/n4.jpg",
+      "brand": "Hermes",
+      "name": "Nebula Spark Eau de Parfum",
+      "price": 2600,
+      "rating": 5
+    },
+    {
+      "id": "N5",
+      "image": "img/Products/n5.jpg",
+      "brand": "Bvlgari",
+      "name": "Space Blossom Perfume",
+      "price": 2500,
+      "rating": 5
+    },
+    {
+      "id": "N6",
+      "image": "img/Products/n6.jpg",
+      "brand": "Givenchy",
+      "name": "Galaxy Rose Fragrance",
+      "price": 2499,
+      "rating": 5
+    },
+    {
+      "id": "N7",
+      "image": "img/Products/n7.jpg",
+      "brand": "Marc Jacobs",
+      "name": "Star Shine Perfume",
+      "price": 2700,
+      "rating": 5
+    },
+    {
+      "id": "N8",
+      "image": "img/Products/n8.jpg",
+      "brand": "Dolce & Gabbana",
+      "name": "Moonlit Dreams Fragrance",
+      "price": 2550,
+      "rating": 5
+    },
+    {
+      "id": "N9",
+      "image": "img/Products/n9.jpg",
+      "brand": "Calvin Klein",
+      "name": "Celestial Wonder Perfume",
+      "price": 2350,
+      "rating": 4
+    },
+    {
+      "id": "N10",
+      "image": "img/Products/n10.jpg",
+      "brand": "Victoria's Secret",
+      "name": "Ethereal Glow Eau de Parfum",
+      "price": 2500,
+      "rating": 5
+    }
+  ]
+}

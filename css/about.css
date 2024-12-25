@@ -1,0 +1,27 @@
+
+#page-header.about-header {
+    background-image: url("../img/about/banner.png");
+    height: 40vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+#about-head {
+    display: flex;
+    align-items: center;
+    padding: 40px 80px;
+}
+
+#about-head img {
+    width: 50%;
+    height: auto;
+}
+
+#about-head div {
+    width: 50%;
+    padding-left: 40px;
+}
+

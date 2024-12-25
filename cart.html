@@ -1,0 +1,56 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Shopping - Cart</title>
+
+    <!-- Global/shared CSS -->
+    <link rel="stylesheet" href="css/global.css" />
+    <!-- Page-specific CSS -->
+    <link rel="stylesheet" href="css/cart.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+
+  <body>
+    <div id="header-placeholder"></div>
+
+    <section class="cart-1" id="cartItems">
+      <!-- This content is dynamically replaced via JS if the cart has items -->
+      <div class="cart-header">
+        <h2>Your Cart is empty</h2>
+      </div>
+    </section>
+
+    <section class="cart-1 section-p1">
+      <div class="cart-total">
+        <table>
+          <tr>
+            <td>Subtotal</td>
+            <td id="subtotal">₹0.00</td>
+          </tr>
+          <tr>
+            <td>Shipping</td>
+            <td>₹5.00</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td id="total">₹5.00</td>
+          </tr>
+        </table>
+        <button class="normal">Proceed to Checkout</button>
+      </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- Global JS -->
+    <script src="js/global.js"></script>
+    <script src="js/cart.js"></script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+
+#page-header.about-header {
+    background-image: url("img/banner/b1.jpg");
+    height: 40vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.cart-1 {
+    padding: 40px 80px;
+}
+
+.cart-header h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.cart-1 table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-1 table thead tr {
+    background-color: #f0f0f0;
+}
+
+.cart-1 table th,
+.cart-1 table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.cart-total {
+    margin-top: 20px;
+}
+
+.cart-total table {
+    width: 300px;
+    border-collapse: collapse;
+}
+
+.cart-total table td {
+    padding: 10px;
+}

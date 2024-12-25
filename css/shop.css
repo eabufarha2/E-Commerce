@@ -1,0 +1,26 @@
+
+#page-header {
+    background-image: url("../img/banner/b1.jpg");
+    height: 40vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+#products1 .pro-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+#products1 .pro {
+    width: 200px;
+    border: 1px solid #cce7d0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+}

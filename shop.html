@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Online Shopping - Shop</title>
-
-  <link rel="stylesheet" href="css/global.css" />
-  <link rel="stylesheet" href="css/shop.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-  />
-</head>
-
-<body>
-  <div id="header-placeholder"></div>
-
-  <section id="page-header">
-    <h2>#stayhome</h2>
-    <p>Save more with coupons & up to 70% off!</p>
-  </section>
-
-  <section id="products1" class="section-p1">
-    <h2>All Products</h2>
-    <p>Browse through our extensive collection</p>
-    <div class="pro-container" id="shop-products"></div>
-  </section>
-
-  <section id="pagination" class="section-p1">
-    <a href="#">1</a>
-    <a href="#">2</a>
-    <a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-  </section>
-
-  <section id="newletter" class="section-p1 section-m1">
-  </section>
-
-  <div id="footer-placeholder"></div>
-
-  <script src="js/global.js"></script>
-  <script src="js/shop.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Shop - Perfume Haven</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/shop.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+    <section id="page-header" class="about-header">
+      <h2>#stayhome</h2>
+      <p>Save more with coupons & up to 70% off!</p>
+    </section>
+    <section class="section-p1" style="text-align:center;">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products by name..."
+        style="
+          width: 250px;
+          padding: 8px 12px;
+          margin-right: 10px;
+          font-size: 14px;
+        "
+      />
+      <select id="sortSelect" style="padding: 8px 12px; font-size: 14px;">
+        <option value="">Sort By</option>
+        <option value="nameAsc">Name (A-Z)</option>
+        <option value="nameDesc">Name (Z-A)</option>
+        <option value="priceAsc">Price (Low-High)</option>
+        <option value="priceDesc">Price (High-Low)</option>
+      </select>
+    </section>
+    <section id="products1" class="section-p1">
+      <h2>Shop Products</h2>
+      <div class="pro-container" id="shop-products"></div>
+    </section>
+    <div id="footer-placeholder"></div>
+    <script src="js/global.js"></script>
+    <script src="js/shop.js"></script>
+  </body>
 </html>

@@ -1,26 +1,51 @@
-
-document.addEventListener('DOMContentLoaded', () => {
+let allShopProducts=[]
+document.addEventListener('DOMContentLoaded',()=>{
   fetch('products.json')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
+    .then(r=>{
+      if(!r.ok)throw new Error(r.status)
+      return r.json()
     })
-    .then(data => {
-      console.log('Fetched products.json successfully for Shop page.');
-
-      if (data.products && Array.isArray(data.products)) {
-        const shopProductsCount = data.products.length;
-        console.log(`Inserting all ${shopProductsCount} shop products.`);
-        displayProducts(data.products, 'shop-products');
-      } else {
-        console.warn('Products data is missing or invalid.');
+    .then(d=>{
+      if(d.products&&Array.isArray(d.products)){
+        allShopProducts=d.products
+        displayProducts(allShopProducts,'shop-products')
       }
-
-      setupAddToCartHandlers();
+      setupAddToCartHandlers()
+      const s=document.getElementById('searchInput')
+      const o=document.getElementById('sortSelect')
+      if(s){
+        s.addEventListener('input',()=>{
+          filterAndSortProducts()
+        })
+      }
+      if(o){
+        o.addEventListener('change',()=>{
+          filterAndSortProducts()
+        })
+      }
     })
-    .catch(error => {
-      console.error('Error fetching products.json for Shop page:', error);
-    });
-});
+    .catch(e=>{
+      console.error('Error fetching products.json for Shop page:',e)
+    })
+})
+function filterAndSortProducts(){
+  const s=document.getElementById('searchInput')
+  const o=document.getElementById('sortSelect')
+  let r=[...allShopProducts]
+  if(s&&s.value.trim()!==''){
+    r=r.filter(p=>p.name.toLowerCase().includes(s.value.toLowerCase()))
+  }
+  if(o){
+    if(o.value==='nameAsc'){
+      r.sort((a,b)=>a.name.localeCompare(b.name))
+    }else if(o.value==='nameDesc'){
+      r.sort((a,b)=>b.name.localeCompare(a.name))
+    }else if(o.value==='priceAsc'){
+      r.sort((a,b)=>a.price-b.price)
+    }else if(o.value==='priceDesc'){
+      r.sort((a,b)=>b.price-a.price)
+    }
+  }
+  displayProducts(r,'shop-products')
+  setupAddToCartHandlers()
+}

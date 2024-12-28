@@ -160,7 +160,8 @@ function handleCheckout() {
   saveCartToLocalStorage();
   updateCartCount();
   updateCartDisplay();
-
+  
+  document.getElementById('money').style.display = 'none';
   document.getElementById('cartTotalSection').style.display = 'none';
 
   // 3) Show a confirmation message

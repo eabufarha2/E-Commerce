@@ -1,7 +1,7 @@
 /* product-detail.css */
 
 #page-header {
-    background-image: url("img/banner/b1.jpg");
+    background-image: url("image/banner/b1.jpg");
     background-size: cover;
     height: 35vh;
     display: flex;

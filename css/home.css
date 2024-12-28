@@ -6,7 +6,7 @@
 /* The hero section only on Home */
 #hero {
     background-image: url("../image/bestsellers.jpg");
-    height: 90vh;
+    height: 92vh;
     width: 100%;
     background-size: cover;
     background-position: top 25% right 0;
@@ -18,6 +18,7 @@
 }
 
 #hero::before {
+    
     content: "";
     position: absolute;
     top: 0;
@@ -40,7 +41,7 @@
 }
 
 #hero button {
-    background-image: url("../img/button.png");
+    background-image: url("../image/button.png");
     background-color: transparent;
     color: #088178;
     border: 0;
@@ -105,7 +106,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background-image: url("../img/banner/b17.jpg");
+    background-image: url("../image/banner/b17.jpg");
     min-width: 50%;
     height: 45vh;
     background-size: cover;
@@ -114,7 +115,7 @@
 }
 
 #sm-banner .banner-box2 {
-    background-image: url("../img/banner/b10.jpg");
+    background-image: url("../image/banner/b10.jpg");
 }
 
 #banner3 {
@@ -129,7 +130,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background-image: url("../img/banner/b7.jpg");
+    background-image: url("../image/banner/b7.jpg");
     min-width: 30%;
     height: 30vh;
     background-size: cover;
@@ -139,11 +140,11 @@
 }
 
 #banner3 .banner-box2 {
-    background-image: url("../img/banner/b4.jpg");
+    background-image: url("../image/banner/b4.jpg");
 }
 
 #banner3 .banner-box3 {
-    background-image: url("../img/banner/b18.jpg");
+    background-image: url("../image/banner/b18.jpg");
 }
 
 #banner3 h2 {

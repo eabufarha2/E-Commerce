@@ -79,9 +79,9 @@
 
 /* Cart Totals Section */
 .cart-total {
-    display: flex;
-        justify-content: center;
-        flex-direction: column;
+    display: flex !important; 
+    justify-content: center;
+    flex-direction: column;
     text-align: right;
 }
 

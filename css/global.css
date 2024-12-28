@@ -17,6 +17,14 @@
 body {
     width: 100%;
     color: #222;
+    /* ensure images shrink properly on small devices */
+    line-height: 1.4;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* Typography */
@@ -51,6 +59,10 @@ p {
 /* Spacing Helpers */
 .section-p1 {
     padding: 40px 80px;
+}
+
+footer {
+    background-color: #E3E6F3;
 }
 
 .section-m1 {
@@ -97,7 +109,7 @@ button.white {
     z-index: 999;
     box-shadow: 0 3px 15px #088178;
     background: #e3e6f3;
-    padding: 20px 80px;
+    padding: 15px 40px;
 }
 
 #navbar {
@@ -121,6 +133,15 @@ button.white {
 
 #navbar li a:hover {
     color: #088178;
+}
+
+/* --------------------------------------------
+   NEW: Highlight active page with this class
+---------------------------------------------*/
+#navbar li a.active-page {
+    color: #088178;
+    border-bottom: 2px solid #088178;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
 #mobile {
@@ -315,7 +336,6 @@ footer .copyright {
 .pro {
     position: relative;
     width: 230px;
-    /* adjust if needed */
     min-height: 320px;
     background-color: #fff;
     border-radius: 20px;
@@ -333,7 +353,7 @@ footer .copyright {
 
 .pro img {
     width: 100%;
-    height: auto;
+    height: 50%;
     display: block;
     border-bottom: 1px solid #eee;
     object-fit: cover;
@@ -440,19 +460,21 @@ footer .copyright {
     font-weight: bold;
 }
 
-/* Media Queries */
+
+/* -------------------------------------------------
+   Additional Responsive Tweaks
+   Adjust breakpoints/values as you prefer
+--------------------------------------------------*/
+
+/* Tablet ~ up to 799px */
 @media (max-width: 799px) {
     .section-p1 {
         padding: 40px 40px;
     }
 
-    #header {
-        padding: 20px 40px;
-    }
-
     #header .logo {
-        width: 10px;
-        height: 10px;
+        width: 100px;
+        height: 25px;
     }
 
     #navbar {
@@ -499,17 +521,14 @@ footer .copyright {
 
     .pro {
         width: 45%;
-        /* 2 cards per row */
+        /* 2 cards per row on tablets */
     }
 }
 
+/* Mobile ~ up to 477px */
 @media (max-width: 477px) {
     .section-p1 {
         padding: 20px;
-    }
-
-    #header {
-        padding: 10px 30px;
     }
 
     #page-header {
@@ -518,6 +537,6 @@ footer .copyright {
 
     .pro {
         width: 80%;
-        /* 1 card per row */
+        /* 1 card per row on small phones */
     }
 }

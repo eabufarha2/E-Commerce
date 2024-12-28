@@ -1,30 +1,16 @@
-/*******************************************************
- * GLOBAL.JS
- * - Dynamically loads header & footer partials
- * - Contains shared cart functionality
- *******************************************************/
 
-/** Global config */
-const DISCOUNT_RATE = 0.7; // 70% discount
-const SHIPPING_COST = 5;   // Flat shipping cost
+const DISCOUNT_RATE = 0.7; 
+const SHIPPING_COST = 5;   
 
-/**
- * Applies the global discount to a given price
- * @param {number} price - original product price
- * @returns {number} discounted price
- */
+
 function applyDiscount(price) {
   return price * (1 - DISCOUNT_RATE);
 }
 
-/*******************************************************
- * 1) MAIN LOAD SEQUENCE
- ******************************************************/
 document.addEventListener('DOMContentLoaded', () => {
-  // Load cart from localStorage so cart[] is ready
+
   loadCartFromLocalStorage();
 
-  // Insert header partial FIRST
   fetch('partials/header.html')
     .then(res => res.text())
     .then(data => {
@@ -32,9 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (headerPlaceholder) {
         headerPlaceholder.innerHTML = data;
         setupMobileMenu();
-        console.log('Header loaded successfully.');
 
-        // Now that #cartCount is in the DOM, we can update it:
+        highlightCurrentNav(); 
+
+        console.log('Header loaded successfully.');
         updateCartCount();
       }
     })
@@ -42,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Error loading header:', error);
     });
 
-  // Insert footer partial
+
   fetch('partials/footer.html')
     .then(res => res.text())
     .then(data => {
@@ -57,9 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-/*******************************************************
- * 2) MOBILE MENU SETUP
- ******************************************************/
+
 function setupMobileMenu() {
   const bar = document.getElementById('bar');
   const closeBtn = document.getElementById('close');
@@ -79,12 +64,21 @@ function setupMobileMenu() {
   }
 }
 
-/*******************************************************
- * 3) CART ARRAY & STORAGE
- ******************************************************/
+function highlightCurrentNav() {
+  const currentURL = window.location.href;
+  const navLinks = document.querySelectorAll('#navbar li a');
+
+  navLinks.forEach(link => {
+    if (currentURL.includes(link.getAttribute('href'))) {
+      link.classList.add('active-page');
+    } else {
+      link.classList.remove('active-page');
+    }
+  });
+}
+
 let cart = [];
 
-/** Load cart from localStorage */
 function loadCartFromLocalStorage() {
   const saved = localStorage.getItem('cart');
   if (saved) {
@@ -100,7 +94,6 @@ function loadCartFromLocalStorage() {
   }
 }
 
-/** Save cart to localStorage */
 function saveCartToLocalStorage() {
   try {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -110,10 +103,6 @@ function saveCartToLocalStorage() {
   }
 }
 
-/*******************************************************
- * 4) CART NOTIFICATION / CART COUNT
- ******************************************************/
-/** Show a small toast when product is added */
 function showCartNotification(message) {
   const notif = document.getElementById('cart-notification');
   if (!notif) {
@@ -130,7 +119,6 @@ function showCartNotification(message) {
   }, 2000);
 }
 
-/** Update the cart count in the top header */
 function updateCartCount() {
   let totalQty = 0;
   cart.forEach(item => {
@@ -142,10 +130,6 @@ function updateCartCount() {
   }
 }
 
-/*******************************************************
- * 5) GENERATE PRODUCTS & DISPLAY
- ******************************************************/
-/** Generate star icons for rating */
 function generateStarsHTML(rating) {
   let stars = '';
   for (let i = 0; i < rating; i++) {
@@ -154,17 +138,12 @@ function generateStarsHTML(rating) {
   return stars;
 }
 
-/** 
- * Generate HTML for a single product 
- * data-id, data-name, data-price, data-img
- */
+
 function generateProductHTML(product) {
   const discountedPrice = applyDiscount(product.price);
   const formattedOriginalPrice = `₪‎${product.price.toFixed(2)}`;
   const formattedDiscountedPrice = `₪‎${discountedPrice.toFixed(2)}`;
   const discountPercentage = `${(DISCOUNT_RATE * 100).toFixed(0)}% OFF`;
-
-  // fallback if image is missing
   const fallbackImg = "https://via.placeholder.com/300?text=No+Image";
 
   return `
@@ -200,9 +179,6 @@ function generateProductHTML(product) {
   `;
 }
 
-/**
- * Insert product HTML into a container
- */
 function displayProducts(products, containerId) {
   const container = document.getElementById(containerId);
   if (!container) {
@@ -217,15 +193,12 @@ function displayProducts(products, containerId) {
   container.innerHTML = productsHTML;
 }
 
-/*******************************************************
- * 6) BIND "ADD TO CART" EVENTS 
- ******************************************************/
 function setupAddToCartHandlers() {
   const cartButtons = document.querySelectorAll('.cart');
   console.log(`Binding .cart handlers to ${cartButtons.length} buttons.`);
 
   cartButtons.forEach(btn => {
-    // remove old listeners
+    // remove old listeners by cloning
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
 
@@ -246,7 +219,6 @@ function setupAddToCartHandlers() {
       const price = parseFloat(productDiv.getAttribute('data-price')) || 0;
       const img = productDiv.getAttribute('data-img');
 
-      // see if item is already in cart
       const existingItem = cart.find(item => item.id === productId);
       if (existingItem) {
         existingItem.qty++;

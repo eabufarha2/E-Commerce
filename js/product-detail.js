@@ -1,7 +1,5 @@
-// js/product-detail.js
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1) Parse the 'id' param from the URL
   const params = new URLSearchParams(window.location.search);
   const productId = params.get('id');
   
@@ -10,14 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // 2) Fetch the entire product list
   fetch('products.json')
     .then(res => {
       if (!res.ok) throw new Error('Failed to load products.json');
       return res.json();
     })
     .then(data => {
-      // Combine featured, newArrivals, and products
       const allProducts = [
         ...(data.featured || []),
         ...(data.newArrivals || []),
@@ -43,22 +39,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-/**
- * Injects the product details into the DOM
- */
+
 function displayProductDetail(product) {
   const productImgDiv = document.getElementById('product-image');
   const productInfoDiv = document.getElementById('product-info');
 
-  // Use the discount function
   const discountedPrice = applyDiscount(product.price);
   const formattedOriginalPrice = `₪‎${product.price.toFixed(2)}`;
   const formattedDiscountedPrice = `₪‎${discountedPrice.toFixed(2)}`;
 
-  // Fallback image
   const fallbackImg = "https://via.placeholder.com/400?text=No+Image";
 
-  // Show product image(s)
   productImgDiv.innerHTML = `
     <img src="${product.image}" 
          alt="${product.name}" 
@@ -66,7 +57,6 @@ function displayProductDetail(product) {
          onerror="this.onerror=null;this.src='${fallbackImg}';" />
   `;
 
-  // Show info (brand, name, rating, price, description)
   productInfoDiv.innerHTML = `
     <h2>${product.name}</h2>
     <h3>Brand: ${product.brand}</h3>
@@ -92,6 +82,5 @@ function displayProductDetail(product) {
     </button>
   `;
 
-  // Bind the "Add to Cart" event
   setupAddToCartHandlers();
 }

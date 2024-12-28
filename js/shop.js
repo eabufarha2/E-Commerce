@@ -1,8 +1,3 @@
-/*******************************************************
- * SHOP.JS
- * - Fetches products.json
- * - Displays all products in the Shop section
- *******************************************************/
 
 document.addEventListener('DOMContentLoaded', () => {
   fetch('products.json')
@@ -15,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       console.log('Fetched products.json successfully for Shop page.');
 
-      // Display All Products in Shop Section
       if (data.products && Array.isArray(data.products)) {
         const shopProductsCount = data.products.length;
         console.log(`Inserting all ${shopProductsCount} shop products.`);
@@ -24,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('Products data is missing or invalid.');
       }
 
-      // Bind Add to Cart event after rendering
       setupAddToCartHandlers();
     })
     .catch(error => {

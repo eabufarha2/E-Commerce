@@ -27,20 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
     formMessages.innerHTML = '';
     formMessages.classList.remove('error', 'success');
 
-    // Retrieve and trim form field values
     const name = nameField.value.trim();
     const email = emailField.value.trim();
     const subject = subjectField.value.trim();
     const message = messageField.value.trim();
 
-    // Initialize an array to hold validation error messages
     let errors = [];
 
-    // ------------------------
-    // Validation Logic
-    // ------------------------
-
-    // Validate Name
     if (name === '') {
       errors.push('Name is required.');
       setError('name', 'Name is required.');
@@ -48,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
       clearError('name');
     }
 
-    // Validate Email using a regular expression pattern
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email === '') {
       errors.push('Email is required.');
@@ -60,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
       clearError('email');
     }
 
-    // Validate Subject
     if (subject === '') {
       errors.push('Subject is required.');
       setError('subject', 'Subject is required.');
@@ -76,12 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
       clearError('message');
     }
 
-    // ------------------------
-    // Error Handling
-    // ------------------------
-
+   
     if (errors.length > 0) {
-      // If there are validation errors, display them
       let errorHtml = '<ul>';
       errors.forEach(function (error) {
         errorHtml += `<li>${error}</li>`;
@@ -90,13 +77,10 @@ document.addEventListener('DOMContentLoaded', function () {
       formMessages.innerHTML = errorHtml;
       formMessages.classList.add('error');
     } else {
-      // If the form is valid, proceed with AJAX submission
-
-      // Disable the submit button and show the loading indicator
+  
       submitButton.disabled = true;
       loadingIndicator.style.display = 'block';
 
-      // Prepare the form data as an object
       const formData = {
         name: name,
         email: email,
@@ -104,65 +88,49 @@ document.addEventListener('DOMContentLoaded', function () {
         message: message
       };
 
-      // Send the form data to the server using Fetch API
-      fetch('https://yourdomain.com/api/contact', { // 📌 **IMPORTANT:** Replace with your actual server endpoint
+      fetch('https://yourdomain.com/api/contact', { 
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json' // Sending JSON data
+          'Content-Type': 'application/json' 
         },
-        body: JSON.stringify(formData) // Convert the form data to JSON
+        body: JSON.stringify(formData) 
       })
         .then(response => {
           if (!response.ok) {
-            // If the response is not OK (status code outside 200-299), throw an error
             return response.json().then(errData => {
               throw new Error(errData.message || 'Something went wrong!');
             });
           }
-          return response.json(); // Parse the JSON response
+          return response.json(); 
         })
         .then(data => {
-          // Handle successful response from the server
           formMessages.innerHTML = '<p>Your message has been sent successfully!</p>';
           formMessages.classList.add('success');
 
-          // Reset the form fields
           form.reset();
 
-          // Optionally, remove success message after a delay
           setTimeout(() => {
             formMessages.innerHTML = '';
             formMessages.classList.remove('success');
           }, 5000);
         })
         .catch(error => {
-          // Handle errors during the fetch operation
           formMessages.innerHTML = `<p>Error: ${error.message}</p>`;
           formMessages.classList.add('error');
           console.error('Error:', error);
         })
         .finally(() => {
-          // Re-enable the submit button and hide the loading indicator
           submitButton.disabled = false;
           loadingIndicator.style.display = 'none';
         });
     }
   });
 
-  // ------------------------
-  // Helper Functions
-  // ------------------------
 
-  /**
-   * Adds error styling and displays an error message for a specific field.
-   * @param {string} fieldId - The ID of the form field.
-   * @param {string} message - The error message to display.
-   */
   function setError(fieldId, message) {
     const field = document.getElementById(fieldId);
     field.classList.add('input-error');
 
-    // Display the error message in the corresponding error div
     const errorElement = document.getElementById(`${fieldId}-error`);
     if (errorElement) {
       errorElement.textContent = message;
@@ -170,15 +138,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  /**
-   * Removes error styling and clears the error message for a specific field.
-   * @param {string} fieldId - The ID of the form field.
-   */
   function clearError(fieldId) {
     const field = document.getElementById(fieldId);
     field.classList.remove('input-error');
 
-    // Clear the error message in the corresponding error div
     const errorElement = document.getElementById(`${fieldId}-error`);
     if (errorElement) {
       errorElement.textContent = '';
@@ -186,10 +149,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  /**
-   * Validates a specific form field in real-time.
-   * @param {string} fieldId - The ID of the form field.
-   */
   function validateField(fieldId) {
     const field = document.getElementById(fieldId);
     const value = field.value.trim();
